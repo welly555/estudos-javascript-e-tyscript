@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercicio</title>
+    <style>
+        .form1 {
+            display: flex;
+
+        }
+
+        .input {
+            flex-grow: 1;
+            flex-direction: column;
+            padding: 1rem;
+            margin-left: 2rem;
+
+        }
+
+        .input input {
+            height: 1.4rem;
+            border-radius: 20px;
+        }
+
+        .button {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+
+        }
+
+        .button button {
+            height: 2rem;
+            width: 5rem;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <h1>Exercicio salvamento de objetos em array por meio de funções</h1>
+    </div>
+    <form action="get" class="form">
+        <div class="form1">
+            <div class="input">
+                <p>Nome:</p>
+                <input type="text" name="nometxt" id="nometxt">
+            </div>
+            <div class="input">
+                <p>Sobrenome:</p>
+                <input type="text" name="sobrenometxt" id="sobrenometxt">
+            </div>
+            <div class="input">
+                <p>peso:</p>
+                <input type="text" name="pesotxt" id="pesotxt">
+            </div>
+            <div class="input">
+                <p>altura:</p>
+                <input type="text" name="alturatxt" id="alturatxt">
+            </div>
+
+        </div>
+        <div class="button">
+            <button type="button">Enviar</button>
+        </div>
+    </form>
+    <div style="text-align: center;">
+        <p class="resul" id="resul"></p>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
