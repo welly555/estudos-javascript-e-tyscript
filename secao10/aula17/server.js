@@ -1,6 +1,7 @@
-require('dotenv').config()
-const express = require('express')
+require('dotenv').config() // variaveis de ambiente 
+const express = require('express') 
 const app = express()
+// banco de dados moongoBD
 const mongoose = require('mongoose')
 
 mongoose.connect(String(process.env.CONNECTIONSTRING))
@@ -9,20 +10,20 @@ mongoose.connect(String(process.env.CONNECTIONSTRING))
     })
     .catch(e => console.log(e))
 
-const session = require('express-session')
-const mongoStore = require('connect-mongo')
-const flash = require('connect-flash')
-const routes = require('./routes')
-const path = require('path')
-const helmet = require('helmet')
-const csrf = require('csurf')
-const {middlewareGlobal, chckCsrfError, csrfMiddleware} = require('./src/middlewares/middleware')
+const session = require('express-session') //session para salvar cooki
+const mongoStore = require('connect-mongo') // session salvas em banco de dados
+const flash = require('connect-flash') // mensagens rapidas
+const routes = require('./routes') // rotas da aplicação
+const path = require('path') // caminhos dentro da aplicação
+const helmet = require('helmet') // segurança
+const csrf = require('csurf') //segurança
+const {middlewareGlobal, chckCsrfError, csrfMiddleware} = require('./src/middlewares/middleware') // middlewares do programa
 
 app.use(helmet())
-app.use(express.urlencoded({extended:true}));
-
-app.use(express.static(path.resolve(__dirname,'public')))
-
+app.use(express.urlencoded({extended:true})); // pode postar formularios para dentro da aplicação
+app.use(express.json())// importação de jason para dentro do programa
+app.use(express.static(path.resolve(__dirname,'public'))) // utilização de static
+ // config session
 const sessionOptions = session({
     secret:'asjdbfçjsbadfbfsaçjd15',
     store: mongoStore.create({mongoUrl: process.env.CONNECTIONSTRING}),
@@ -34,6 +35,7 @@ const sessionOptions = session({
     }
 })
 app.use(sessionOptions)
+//flash mensages
 app.use(flash())
 
 app.set('views', path.resolve(__dirname,'src','views'))
