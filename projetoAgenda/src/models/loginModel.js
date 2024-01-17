@@ -16,25 +16,43 @@ class Login {
         this.user = null
     }
 
+    async login() {
+        this.valida()
+        if (this.errors.length > 0) return
+        this.user = await LoginModel.findOne({email: this.body.email})
+
+        if(!this.user){
+            this.errors.push('Email ou senha invalido')
+            return
+        } 
+
+        if(!bcryptjs.compareSync(this.body.password,this.user.password)){
+            this.errors.push('Email ou senha invalido')
+            this.user = null
+            return
+        }
+
+
+    }
+
     async register() {
         this.valida()
         if (this.errors.length > 0) return
 
         await this.userExists()
         if (this.errors.length > 0) return
-        try{
-            const salt = bcryptjs.genSaltSync()
-            this.body.password = bcryptjs.hashSync(this.body.password, salt)
-            this.user = await LoginModel.create(this.body)
-        } catch (e) {
-            console.log(e)
-        }
+        
+        const salt = bcryptjs.genSaltSync()
+        this.body.password = bcryptjs.hashSync(this.body.password, salt)
+        this.user = await LoginModel.create(this.body)
+        
         
     }
 
     async userExists() {
-        const user = await LoginModel.findOne({email: this.body.email})
-        if(user) this.errors.push('Usuario já cadastrado no sistema')
+        this.user = await LoginModel.findOne({email: this.body.email})
+        if(this.user) this.errors.push('Usuario já cadastrado no sistema')
+        
     }
 
     valida() {
