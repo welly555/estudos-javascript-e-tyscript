@@ -10,12 +10,18 @@ const ContatoSchema = new mongoose.Schema({
     
 })
 
-const ContatoModel = mongoose.model('Contato',ContatoSchema)
+const ContatoModel = mongoose.model('contatp',ContatoSchema)
 
 function Contato(body){
     this.body = body
     this.errors = []
     this.contato = null
+}
+
+Contato.buscaPorId = async function(id) {
+    if (typeof id !== 'string') return
+    const user = await ContatoModel.findById(id)
+    return user
 }
 
 Contato.prototype.register = async function() {
@@ -29,7 +35,7 @@ Contato.prototype.valida = function() {
 
     if (this.body.email && !validator.isEmail(this.body.email)) this.errors.push('E-mail inválido.')
     if (!this.body.nome) this.errors.push('Nome é um campo obrigatorio')
-    if (!this.body.email && this.body.telefone){ 
+    if (!this.body.email && !this.body.telefone){ 
         this.errors.push('Pelo menos um contato precisa ser enviado: Email ou Telefone')
     }
 }
@@ -50,4 +56,4 @@ Contato.prototype.cleanUp = function() {
     }
 }
 
-module.exports = Home
+module.exports = Contato
