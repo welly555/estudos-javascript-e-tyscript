@@ -1,6 +1,12 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
-import './assets/css/style.css'
+// import './assets/css/style.css'
 
-console.log("ola mundo")
+import Login from './modules/Login'
+
+const login = new Login('.verifica-login')
+const cadastro = new Login('.verifica-cadastro')
+
+login.init()
+cadastro.init()
