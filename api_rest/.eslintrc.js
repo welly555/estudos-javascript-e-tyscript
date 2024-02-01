@@ -22,6 +22,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "no-console": falsa
+    "no-console": false,
+    "class-methods-use-this" : "of"
   },
 };
